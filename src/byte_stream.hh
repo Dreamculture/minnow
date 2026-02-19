@@ -11,7 +11,15 @@ class ByteStream
 {
 public:
   explicit ByteStream( uint64_t capacity );
-
+/*
+  explicit ByteStream( uint64_t capacity )
+  :capacity_(capacity),
+  buffer_(),
+  total_popped_(0),
+  total_pushed_(0),
+  closed_(false){}
+  ;
+*/
   // Helper functions (provided) to access the ByteStream's Reader and Writer interfaces
   Reader& reader();
   const Reader& reader() const;
@@ -25,6 +33,11 @@ protected:
   // Please add any additional state to the ByteStream here, and not to the Writer and Reader interfaces.
   uint64_t capacity_;
   bool error_ {};
+
+  std::string buffer_ ; 
+  uint64_t total_pushed_ ; 
+  uint64_t total_popped_  ; 
+  bool closed_ ; 
 };
 
 class Writer : public ByteStream
