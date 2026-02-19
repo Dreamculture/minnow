@@ -7,12 +7,47 @@
 #include <string>
 
 using namespace std;
-
+/*
 namespace {
 void get_URL( const string& host, const string& path )
 {
   debug( "Function called: get_URL( \"{}\", \"{}\" )", host, path );
+  TCPSocket socket ; 
+  socket.connect(Address(host , "80"));
+  string request = 
+        "GET " + path + " HTTP/1.1\r\n"
+        "Host: " + host + "\r\n"
+        "Connection: close\r\n"
+        "\r\n";
+  socket.write(request);
+  while (!socket.eof()){
+    string response = socket.read();
+    cout << response ; 
+  }  
   debug( "get_URL() function not yet implemented" );
+}
+} // namespace
+*/
+namespace {
+void get_URL( const string& host, const string& path )
+{
+  debug( "Function called: get_URL( \"{}\", \"{}\" )", host, path );
+
+  TCPSocket socket;
+  socket.connect(Address(host, "80"));
+
+  string request =
+        "GET " + path + " HTTP/1.1\r\n"
+        "Host: " + host + "\r\n"
+        "Connection: close\r\n"
+        "\r\n";
+
+  socket.write(request);
+while (!socket.eof()) {
+    vector<string> buffers(1);     // one buffer
+    socket.read(buffers);          // fill it
+    cout << buffers[0];            // print it
+}
 }
 } // namespace
 
