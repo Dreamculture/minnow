@@ -44,6 +44,10 @@ public:
   Reader& reader() { return output_.reader(); }
   const Reader& reader() const { return output_.reader(); }
 
+  //checkpoint 2 , add the non-constonly writer 
+  
+  Writer & writer() { return output_.writer() ;}
+
   // Access output stream writer, but const-only (can't write from outside)
   const Writer& writer() const { return output_.writer(); }
 
